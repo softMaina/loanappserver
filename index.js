@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     guarantors = require('./models/Guarantor'),
     users = require('./models/User');
 // connect to mongodb
-mongoose.connect("mongodb://localhost:27017/muchemi");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/muchemi");
 var bodyparser = require('body-parser');
 
 var route = require('./routes/routes');
@@ -32,7 +32,7 @@ app.use(route);
 
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
     console.log(`server running on port ${PORT}`);
