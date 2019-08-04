@@ -4,11 +4,15 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 var userSchema = mongoose.Schema({
-    username: { type:String, required: true, unique:true },
+    firstname: { type:String, required: true},
+    lastname: { type:String, required: true },
     email: { type:String, required:true, unique:true },
+    contact:{ type:String, required:true },
     password: { type:String, required:true },
+    approved:{ type:Boolean, default:false },
     createdAt: {type:Date, default: Date.now },
-    isAdmin:{type:String, default:false}
+    isAdmin: {type:Boolean, default:false},
+    role: {type:String, required:true}
 });
 
 userSchema.pre('save',function(next){

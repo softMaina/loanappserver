@@ -29,7 +29,7 @@ class loanRequestController{
      */
     show(req, res, next){
 
-        requests.find({_id:req.params.id},function(err,loans){
+        requests.find({userid:req.params.id},function(err,loans){
             if(err)
                 res.json(err);
 

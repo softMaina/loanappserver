@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     guarantors = require('./models/Guarantor'),
     users = require('./models/User');
 // connect to mongodb
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/muchemi");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/docs");
 var bodyparser = require('body-parser');
 
 var route = require('./routes/routes');

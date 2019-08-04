@@ -24,20 +24,20 @@ class userController{
 
     login(req, res, next){
         const { email, password } = req.body;
-        user.findOne({email}, function(err, user){
+
+        user.findOne({email}, function(err, userdata){
             if(err){
-                return res.status(500)
-                    .json({
-                        error:'Internal error please try again'
+                return res.json({
+                        error:err
                     });
-            }else if(!user){
+            }else if(!userdata){
                 return res.status(401)
                 .json({
                     error:'Incorrect email or password'
                 });
 
             }else{
-                user.isCorrectPassword(password, function(err, same){
+                userdata.isCorrectPassword(password, function(err, same){
                     if(err){
                         return res.status(500)
                             .json({
@@ -53,7 +53,7 @@ class userController{
                         //     .sendStatus(200)
                         return res.json({
                             token:token,
-                            user:user,
+                            user:userdata,
                         });
                     }
                 });
@@ -63,20 +63,39 @@ class userController{
     }
 
     register(req, res, next){
-        const { email } = req.body.email;
-        var userRegister = new user(req.body);
-        userRegister.save(function(err, user){
-            if(err)
-                return res.json(err);
-            const payload ={email};
-            const token = jwt.sign(payload,secret,{
-                expiresIn:'1h'
-            })
+        // validation
+        if(req.body === null || req.body === ''){
             return res.json({
-                user:user,
-                token:token
-            });
-        });
+                error:'Missing fields in request body'
+            })
+        }
+        if(req.body.firstname !== '' && req.body.lastname !== ''){
+            //create password value
+            var password = Math.floor(Math.random() * 10000)
+
+            var data = {
+                firstname:req.body.firstname,
+                lastname:req.body.lastname,
+                email:req.body.email,
+                'contact':req.body.contact,
+                'password':password,
+                'role':req.body.role
+            }
+
+            var userRegister = new user(data)
+            userRegister.save(function(err, user){
+                if(err){
+                    console.log(err)
+                    return res.json({
+                        error: err
+                    })
+                }
+                return res.json({
+                    success:'User registered successfully',
+                    user:{ password: password, email: req.body.email }
+                })
+            })
+        }
     }
 
     logout(req, res, next){
