@@ -7,6 +7,7 @@ var guarantorSchema = mongoose.Schema({
     email:     { type:String, isRequired:true },
     contact:   { type:String, isRequired:true },
 });
+guarantorSchema.index({'$**':'text'})
 
 var Guarantors = mongoose.model("Guarantors",guarantorSchema);
 

@@ -16,13 +16,17 @@ class paymentController{
     }
     
     /**
-     * get single payment data
+     * simulate cash to the user
      * @param {*} req 
      * @param {*} res 
      * @param {*} next 
      */
-    show(req, res, next){
+    admin_simulate(req, res, next){
+        
+    }
 
+    user_simulate(req, res, next){
+        
     }
 
     /**

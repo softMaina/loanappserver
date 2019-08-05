@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var user = mongoose.model('User');
+var mail = require('../config/mail');
 
 const jwt = require('jsonwebtoken');
 const secret = '123456789';
@@ -13,12 +14,21 @@ class userController{
      * @param {*} next 
      */
     index(req,res,next){
-        user.find({},function(err, users){
+        user.find({role:'member'},function(err, users){
             if(err)
                 res.json(err)
             
             res.json(users)
 
+        })
+    }
+
+
+    staff(req, res,next){
+        user.find({role:'staff'},function(err,users){
+            if(err)
+                res.json(err)
+            res.json(users)
         })
     }
 
@@ -90,6 +100,11 @@ class userController{
                         error: err
                     })
                 }
+                try {
+                    mail(data.email,data.password);
+                } catch (error) {
+                    console.log(error)
+                }
                 return res.json({
                     success:'User registered successfully',
                     user:{ password: password, email: req.body.email }
@@ -98,8 +113,14 @@ class userController{
         }
     }
 
-    logout(req, res, next){
-    
+    approveUser(req, res, next){
+        var filter = {_id:req.params.id};
+        var update = {approved: true};
+        user.findOneAndUpdate(filter,update,{new:true},function(err,response){
+            if(err)
+                return res.json(err)
+            return res.json(response)
+        })
     }
 }
 

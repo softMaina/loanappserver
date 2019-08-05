@@ -74,6 +74,19 @@ class AddGuarantor{
         })
     }
 
+    searchGuarantors(req,res){
+        var searchString = req.body.search;
+        guarantors.find({$text:{$search: searchString}})
+                  .skip(20)
+                  .limit(20)
+                  .exec(function(err,docs){
+                    if(err)
+                        return res.json(err)
+                    
+                    return res.json(docs)
+                  })
+    }
+
 }
 
 var add_guarantor = new AddGuarantor();

@@ -3,6 +3,8 @@ var loanController = require('../controllers/loanController');
 var guarantorsController = require('../controllers/guarantorsController');
 var userController = require('../controllers/userController');
 var loanRequestController = require('../controllers/loanRequestController');
+var landController = require('../controllers/landController');
+var multerConfig = require('../config/multer');
 const router = express.Router();
 
 //loanrequests
@@ -22,12 +24,26 @@ router.patch('/api/v1/loans/approve',loanController.store)
 router.get('/api/v1/guarantors',guarantorsController.index);
 router.get('/api/v1/guarantors/show/:id',guarantorsController.show);
 router.post('/api/v1/addguarantor',guarantorsController.store);
+router.post('/api/v1/guarantors/search',guarantorsController.searchGuarantors);
 
 
 //user routes
 router.get('/api/v1/users',userController.index);
+router.get('/api/v1/staff',userController.staff)
 router.post('/api/v1/register',userController.register);
 router.post('/api/v1/login',userController.login);
+router.put('/api/v1/user/update/:id',userController.approveUser);
 
+//land routes
+router.get('/api/v1/land',landController.index);
+router.get('/api/v1/land/for_sale',landController.index_for_sale);
+router.post('/api/v1/land/save',multerConfig.saveToUploads,landController.store);
+router.patch('/api/v1/land/update/:id',landController.update);
+router.delete('/api/v1/land/delete/:id', landController.delete);
+
+
+router.post('/uploads', multerConfig.saveToUploads, (req, res) => {
+    return res.json("file uploaded successfully");
+});
 
 module.exports = router;
