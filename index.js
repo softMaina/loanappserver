@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
 var nStatic = require('node-static');
 var fileServer = new nStatic.Server('public');
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/docs");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/loans");
 var bodyparser = require('body-parser');
 
 var route = require('./routes/routes');
