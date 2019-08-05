@@ -87,9 +87,9 @@ class userController{
                 firstname:req.body.firstname,
                 lastname:req.body.lastname,
                 email:req.body.email,
-                'contact':req.body.contact,
-                'password':password,
-                'role':req.body.role
+                contact:req.body.contact,
+                password:password,
+                role:req.body.role
             }
 
             var userRegister = new user(data)
