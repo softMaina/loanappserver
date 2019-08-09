@@ -31,7 +31,7 @@ class AddGuarantor{
      * @param {*} next 
      */
     show(req, res, next){
-        guarantors.find({userId:req.params.id}, function(err, guarantors){
+        guarantors.find({userid:req.params.id}, function(err, guarantors){
             if(err)
                 res.json(err)
             

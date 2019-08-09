@@ -91,6 +91,8 @@ class userController{
                 password:password,
                 role:req.body.role
             }
+            console.log(data)
+
 
             var userRegister = new user(data)
             userRegister.save(function(err, user){
