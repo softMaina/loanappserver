@@ -20,8 +20,8 @@ class loanRequestController{
             }
         }]).then((err, response)=>{
             if(err)
-                res.json(err)
-            res.json(response)
+                return res.send(err)
+            return res.json(response)
         });
     }
     /**
