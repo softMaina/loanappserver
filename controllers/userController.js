@@ -84,7 +84,8 @@ class userController{
         }
         if(req.body.firstname !== '' && req.body.lastname !== ''){
             //create password value
-            var password = Math.floor(Math.random() * 10000)
+            // var password = Math.floor(Math.random() * 10000)
+            var password = "loanapp";
 
             var data = {
                 firstname:req.body.firstname,
