@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     loan = require('./models/Loan'),
     guarantors = require('./models/Guarantor'),
     users = require('./models/User');
+    payment = require('./models/Payment');
 // connect to mongodb
 var nStatic = require('node-static');
 var fileServer = new nStatic.Server('public');

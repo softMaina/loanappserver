@@ -32,7 +32,7 @@ class LoanController{
         ]).then((err, response)=>{
             if(err)
                 res.json(err)
-            res.json(response)
+           return res.json(response)
         })
        
     }
@@ -49,9 +49,9 @@ class LoanController{
         
         data.findById(req.body.id,function(err, loanData){
             if(err)
-                res.send(err);
+                return res.send(err);
             
-            res.json(loanData)
+           return res.json(loanData)
         })
     }
 

@@ -3,6 +3,7 @@ var loanController = require('../controllers/loanController');
 var guarantorsController = require('../controllers/guarantorsController');
 var userController = require('../controllers/userController');
 var loanRequestController = require('../controllers/loanRequestController');
+var paymentController = require('../controllers/paymentController');
 var landController = require('../controllers/landController');
 var multerConfig = require('../config/multer');
 const router = express.Router();
@@ -17,7 +18,7 @@ router.delete('/api/v1/application/delete/:id',loanRequestController.delete);
 // loan routes
 router.get('/api/v1/loans', loanController.index);
 router.get('/api/v1/loans/show/:id',loanController.show);
-router.patch('/api/v1/loans/approve',loanController.store)
+router.patch('/api/v1/loans/approve',loanController.store);
 
 
 //guarantor routes
@@ -33,6 +34,7 @@ router.get('/api/v1/staff',userController.staff)
 router.post('/api/v1/register',userController.register);
 router.post('/api/v1/login',userController.login);
 router.put('/api/v1/user/update/:id',userController.approveUser);
+router.put('/api/v1/user/reject/:id',userController.rejectUser);
 router.get('/api/v1/users/report/:id',userController.userReport);
 
 //land routes
@@ -41,6 +43,11 @@ router.get('/api/v1/land/for_sale',landController.index_for_sale);
 router.post('/api/v1/land/save',multerConfig.saveToUploads,landController.store);
 router.patch('/api/v1/land/update/:id',landController.update);
 router.delete('/api/v1/land/delete/:id', landController.delete);
+
+//payments
+router.get('/api/v1/payments',paymentController.index);
+router.post('/api/v1/payments/user_simulate',paymentController.user_simulate);
+router.post('/api/v1/payments/admin_simulate',paymentController.admin_simulate);
 
 
 router.post('/uploads', multerConfig.saveToUploads, (req, res) => {

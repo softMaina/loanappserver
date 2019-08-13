@@ -128,27 +128,30 @@ class userController{
         })
     }
 
+    rejectUser(req, res, next){
+        var filter = {_id:req.params.id};
+        var update = {approved: false};
+        user.findOneAndUpdate(filter,update,{new:true},function(err,response){
+            if(err)
+                return res.json(err)
+            return res.json(response)
+        })
+    }
+
     userReport(req, res, next){
-       var userdata =  user.find({_id:req.params.id}).then((err)=>{
-            if(err)
-                return res.json(err);
-        });
-        var guarantordata = guarantor.find({userid:req.params.id}).then((err)=>{
-            if(err)
-                return res.json(err);
+        var userdata = {}
+        user.find({_id:req.params.id}).then(response => {
+            console.log(response)
+            userdata = response;
         })
-        var loandata = loan.find({userid:req.params.id}).then((err)=>{
-            if(err)
-                return res.json(err);
+        guarantor.find({userid:req.params.id}).then(response => {
+            console.log(response)
+        })
+        loan.find({userid:req.params.id}).then(response => {
+            console.log(response)
         })
 
-        var data = {
-            _user: userdata,
-            _guarantors: guarantordata,
-            _loans: loandata
-        }
-
-        return res.json(data);
+        return res.json(userdata);
     }
 }
 
