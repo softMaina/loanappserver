@@ -31,13 +31,13 @@ class AddGuarantor{
      * @param {*} next 
      */
     show(req, res, next){
-        // guarantors.find({userid:req.params.id}, function(err, guarantors){
-        //     if(err)
-        //         return res.json(err)
+        guarantors.find({userid:req.params.id}, function(err, guarantors){
+            if(err)
+                return res.json(err)
             
-        //     return res.json(guarantors);
-        // })
-        console.log(req.params)
+            return res.json(guarantors);
+        })
+        // console.log(req.params)
     }
 
     /**
