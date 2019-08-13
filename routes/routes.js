@@ -33,6 +33,7 @@ router.get('/api/v1/staff',userController.staff)
 router.post('/api/v1/register',userController.register);
 router.post('/api/v1/login',userController.login);
 router.put('/api/v1/user/update/:id',userController.approveUser);
+router.get('/api/v1/users/report/:id',userController.userReport);
 
 //land routes
 router.get('/api/v1/land',landController.index);

@@ -1,5 +1,8 @@
+  
 var mongoose = require('mongoose');
 var user = mongoose.model('User');
+var loan = mongoose.model('Loan');
+var guarantor = mongoose.model('Guarantors');
 var mail = require('../config/mail');
 
 const jwt = require('jsonwebtoken');
@@ -123,6 +126,29 @@ class userController{
                 return res.json(err)
             return res.json(response)
         })
+    }
+
+    userReport(req, res, next){
+       var userdata =  user.find({_id:req.params.id}).then((err)=>{
+            if(err)
+                return res.json(err);
+        });
+        var guarantordata = guarantor.find({userid:req.params.id}).then((err)=>{
+            if(err)
+                return res.json(err);
+        })
+        var loandata = loan.find({userid:req.params.id}).then((err)=>{
+            if(err)
+                return res.json(err);
+        })
+
+        var data = {
+            _user: userdata,
+            _guarantors: guarantordata,
+            _loans: loandata
+        }
+
+        return res.json(data);
     }
 }
 
